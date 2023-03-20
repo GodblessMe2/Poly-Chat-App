@@ -15,13 +15,14 @@ const getUser =()=>{
   const user = currentUser.data.user
   const content = document.querySelector(".content")
   content.innerHTML = `
-    <img src=${user.photo} alt="">
+    <img src="/images/${user.photo}" alt="#">
     <div class="details">
       <span>${user.firstName} ${user.lastName}</span>
       <p>${user.statuss}</p>
     </div>
   `
 }
+
 getUser()
 
 
@@ -39,7 +40,6 @@ searchIcon.onclick = ()=>{
 // Search for a particular Active user
 const searchInput = document.getElementById("searchInput");
 const items = document.getElementsByClassName("names");
-console.log(items)
 
 searchInput.addEventListener("keyup", function(event) {
   const query = event.target.value.toLowerCase();
@@ -62,10 +62,9 @@ logout.addEventListener("click", ()=>{
   window.location.href = '../login.html'
 })
 
-fetch("/api/v1/users/")
+fetch("/api/v1/users/getUsers")
   .then(response => response.json())
   .then(result => {
-  console.log(result.data.users)
   const usersList = document.querySelector(".users-list")  
   const users = result.data.users
   users.forEach(user => {
@@ -74,7 +73,7 @@ fetch("/api/v1/users/")
     userElement.setAttribute("class", "names")
     userElement.innerHTML = `
     <div class="content">
-      <img src=${user.photo} alt="#">
+    <img src="/images/${user.photo}" alt="#">
       <div class="detail">
         <span>${user.firstName} ${user.lastName}</span>
         <p>${user.statuss}</p>

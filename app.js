@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
-// const tourRouter = require('../starter/routers/tourRouters');
 const userRouter = require('./Backend/routers/userRouters');
+const messageRouter = require('./Backend/routers/messageRouters');
 const app = express();
 const AppError = require('./Backend/utils/appError');
 const globalErrorHandler = require('./Backend/controllers/errorControllers');
@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 })
 
 app.use('/api/v1/users', userRouter);
-
+app.use('/api/v1/chat', messageRouter);
 
 app.all('*', (req, res, next) => {
 

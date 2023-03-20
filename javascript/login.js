@@ -1,5 +1,5 @@
 const form = document.querySelector(".login form"),
-err = form.querySelector(".error-text");
+errorText = form.querySelector(".error-text");
 
 
 form.addEventListener('submit', (e) => {
@@ -29,17 +29,17 @@ form.addEventListener('submit', (e) => {
   .then(response => response.json())
   .then(result => {
     if(result.status === "fail"){
-      err.style.display = "block"
-      err.textContent = "Invalid username or password"
+      errorText.style.display = "block"
+      errorText.textContent = `${result.message}`
       setTimeout(()=>{
-        err.style.display = "none"
+        errorText.style.display = "none"
       },3000)
-      return
+    } else {
+      localStorage.setItem("user", JSON.stringify(result))
+      window.location.href = '../users.html'
     }
-    localStorage.setItem("user", JSON.stringify(result))
-    window.location.href = '../users.html'
   })
-  .catch(error => console.log('error', error));
+  .catch(err => err);
 
   form.reset();
 });
